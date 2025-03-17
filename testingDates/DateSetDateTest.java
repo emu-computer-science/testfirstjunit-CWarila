@@ -1,5 +1,7 @@
 package testingDates;
 
+import org.junit.Test;
+import org.junit.Assert.*;
 public class DateSetDateTest {
 	
 	Date setter = new Date ("January", 1, 2000);

@@ -7,6 +7,7 @@ public class Date
     private String month;
     private int day;
     private int year; //a four digit number.
+    int[] daysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
     public Date( )
     {
@@ -60,7 +61,7 @@ public class Date
 
     public void setDate(String monthString, int day, int year)
     {
-        if (dateOK(monthString, day, year))
+        if (dateOK(monthString, day, year) && day <= daysInMonth[getMonth(monthString)])
         {
             this.month = monthString;
             this.day = day;
@@ -68,8 +69,8 @@ public class Date
         }
         else
         {
-            System.out.println("Fatal Error in setDate(String,int, int)");
-            System.exit(0);
+            System.out.println("Can not set to illegal Date");
+            return null;
         }
     }
 
@@ -254,7 +255,27 @@ public class Date
     }
     
     public Date addOneDay(){
-    	System.out.println("Date.addOneDay() is not yet implemented.");
+    	
+    	//Cross year condition
+    	if(this.getMonth() == 12 && this.getDay() == 31) {
+    		this.setYear(this.getYear() + 1);
+    		this.setMonth(1);
+    		this.setDay(1);
+    		
+    		return this;
+    	}
+    	
+    	//Cross month conditions
+    	else if(aDate.getDay() == daysInMonth[aDate.getMonth()]) {
+    		this.setMonth(this.getMonth() + 1);
+    		this.setDay(1);
+    		
+    		return this;
+    	}
+    	
+    	this.setDay(this.getDay() + 1);
+    	
+    	return this;
     }
     
     public static void main(String[] args) {
